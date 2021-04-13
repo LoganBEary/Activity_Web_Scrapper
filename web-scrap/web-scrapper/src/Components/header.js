@@ -3,7 +3,7 @@ import React from 'react';
 const header = () => {
 	return (
 		<div className="header">
-			<h1> HEADER </h1>
+			<h1> Find Your Local Shinanigans </h1>
 		</div>
 	)
 }
