@@ -1,14 +1,22 @@
-import './App.css';
-import Header from './Components/header.js';
-import Pop_up from './Components/pop_up.js';
+import './App.css'
+import Header from './Components/Header'
+import GetArea from './Components/PopUp'
+//  import React, { useState } from 'react'
 
-function App() {
+/* function Submit () {
+
+} */
+
+function App () {
   return (
-    <div className="App">
-      <Header/>
-      <Pop_up/>
+    <div className='App'>
+      <Header />
+      <GetArea
+        content={<p>Please Enter Your Zip Code</p>}
+        // onClick={Submit()}
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
