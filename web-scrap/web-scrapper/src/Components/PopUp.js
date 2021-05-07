@@ -1,26 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './PopUp.css'
 
 const Popup = (props) => {
   const [enteredZip, setEnteredZip] = useState('')
   const [enteredZipTouched, setEnteredZipTouched] = useState(false)
+  const [containsLetter, setLetter] = useState(false)
+  const regExp = /[a-zA-Z_]/g
+  const enteredZipIsValid = (enteredZip.trim() !== '' && !regExp.test(enteredZip) && enteredZip.length <= 5)
+  const zipEnteredIsInvalid = ((!enteredZipIsValid && enteredZipTouched) || enteredZip.length > 5)
 
-  const enteredZipIsValid = enteredZip.trim() !== ''
-  const zipEnteredIsInvalid = !enteredZipIsValid && enteredZipTouched
+  let formIsValid = false
+  if (enteredZipIsValid && !containsLetter) {
+    formIsValid = true
+  }
 
   const zipInputChangeHandler = event => {
     setEnteredZip(event.target.value)
+    // console.log('in')
+    const cont = regExp.test(event.target.value)
+    if (cont === true) {
+      setLetter(true)
+      console.log('contains:', containsLetter)
+    } else setLetter(false)
   }
 
-  const zipInputBlurHandler = event => {
+  const zipInputBlurHandler = _ => {
     setEnteredZipTouched(true)
   }
 
-  const formSubmissionHandler = event => {
+  const formSubmissionHandler = (event) => {
     event.preventDefault()
-
     setEnteredZipTouched(true)
-
+    // send zip to backend here
+    // set if valid or not
     if (!enteredZipIsValid) {
       return
     }
@@ -28,12 +40,12 @@ const Popup = (props) => {
     setEnteredZipTouched(false)
   }
 
-  const nameInputClasses = zipEnteredIsInvalid
+  const nameInputClasses = zipEnteredIsInvalid || containsLetter
     ? 'box form-control invalid'
     : 'box form-control'
 
   return (
-    <form onSubmit={formSubmissionHandler}>
+    <form onSubmit={formSubmissionHandler} method='POST' className='zipForm'>
       <div className={nameInputClasses}>
         <label htmlFor='zipcode' className='label-cover'>{props.content}</label>
         <input
@@ -44,13 +56,14 @@ const Popup = (props) => {
           onChange={zipInputChangeHandler}
           value={enteredZip}
         />
-        <button className='getZip'>
+        {/* on click send info to backend */}
+        <button className='getZip' disabled={!formIsValid}/* onClick={} */>
           Submit
         </button>
-        {/* {enteredZipIsValid ? <p className='error-text'>Zip must be a number</p> : null} */}
-        {zipEnteredIsInvalid && (
-          <p className='error-text'>Invalid Zipcode</p>
-        )}
+        {/* formIsValid ? <p className='error-text'>Zip must be a number</p> : null */}
+        {(zipEnteredIsInvalid || containsLetter)
+          ? <p className='error-text'>Invalid Zipcode</p>
+          : null}
       </div>
     </form>
   )
