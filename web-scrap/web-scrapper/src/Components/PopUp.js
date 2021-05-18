@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import './PopUp.css'
 
@@ -12,6 +13,13 @@ const Popup = (props) => {
   let formIsValid = false
   if (enteredZipIsValid && !containsLetter) {
     formIsValid = true
+  }
+
+  function zipPostHandler (event) {
+    event.preventDefault()
+    axios.post('/reroute', { enteredZip }).then(res => {
+      window.location.href = 'choices'
+    })
   }
 
   const zipInputChangeHandler = event => {
@@ -57,7 +65,7 @@ const Popup = (props) => {
           value={enteredZip}
         />
         {/* on click send info to backend */}
-        <button className='getZip' disabled={!formIsValid}/* onClick={} */>
+        <button className='getZip' disabled={!formIsValid} onClick={zipPostHandler}/* onClick={} */>
           Submit
         </button>
         {/* formIsValid ? <p className='error-text'>Zip must be a number</p> : null */}
