@@ -28,7 +28,7 @@ const Popup = (props) => {
     const cont = regExp.test(event.target.value)
     if (cont === true) {
       setLetter(true)
-      console.log('contains:', containsLetter)
+      // console.log('contains:', containsLetter)
     } else setLetter(false)
   }
 
@@ -53,7 +53,7 @@ const Popup = (props) => {
     : 'box form-control'
 
   return (
-    <form onSubmit={formSubmissionHandler} method='POST' className='zipForm'>
+    <form onSubmit={formSubmissionHandler} className='zipForm'>
       <div className={nameInputClasses}>
         <label htmlFor='zipcode' className='label-cover'>{props.content}</label>
         <input
