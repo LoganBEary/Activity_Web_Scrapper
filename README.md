@@ -6,6 +6,10 @@ A Website built with React.js to find activities near you!
 * It will pop up a tab with the site!
 
 *Things to instal for Website to work*
+
 *brew install node
+
 *pip install --upgrade uszipcode
+
 *npm install --save react-router
+
