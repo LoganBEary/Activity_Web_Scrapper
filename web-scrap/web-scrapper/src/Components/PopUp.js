@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import {Helmet} from 'react-helmet'
 import './PopUp.css'
+import {Redirect} from 'react-router-dom'
 
 const Popup = (props) => {
   const [enteredZip, setEnteredZip] = useState('')
@@ -18,7 +20,7 @@ const Popup = (props) => {
   function zipPostHandler (event) {
     event.preventDefault()
     axios.post('/reroute', { enteredZip }).then(res => {
-      window.location.href = 'choices'
+      //window.location.href = 'choices'
     })
   }
 
@@ -53,6 +55,12 @@ const Popup = (props) => {
     : 'box form-control'
 
   return (
+    <div>
+      <Helmet>
+      <title>Find Shenanigans </title>
+        <meta name="description" content="App Description" />
+        <meta name="theme-color" content="#008f68" />
+      </Helmet>
     <form onSubmit={formSubmissionHandler} className='zipForm'>
       <div className={nameInputClasses}>
         <label htmlFor='zipcode' className='label-cover'>{props.content}</label>
@@ -64,16 +72,15 @@ const Popup = (props) => {
           onChange={zipInputChangeHandler}
           value={enteredZip}
         />
-        {/* on click send info to backend */}
         <button className='getZip' disabled={!formIsValid} onClick={zipPostHandler}/* onClick={} */>
           Submit
         </button>
-        {/* formIsValid ? <p className='error-text'>Zip must be a number</p> : null */}
         {(zipEnteredIsInvalid || containsLetter)
           ? <p className='error-text'>Invalid Zipcode</p>
           : null}
       </div>
     </form>
+    </div>
   )
 }
 
