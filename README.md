@@ -5,6 +5,11 @@ A Website built with React.js to find activities near you!
 * using a command console - cd into web-scrapper and use ***npm start***
 * It will pop up a tab with the site!
 
-*need to install React Router
-*Node.js
-*Document others
+*Things to instal for Website to work*
+
+*brew install node
+
+*pip install --upgrade uszipcode
+
+*npm install --save react-router
+
