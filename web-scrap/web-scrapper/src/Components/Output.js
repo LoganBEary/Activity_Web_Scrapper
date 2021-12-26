@@ -1,61 +1,42 @@
-import React from 'react'
 import Header from './Header'
-import {Helmet} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import React, { Helmet, useEffect, useState } from 'react'
+import DynCard from './Card.js'
+import './Output.css'
+// import Back from './Back'
+import axios from 'axios'
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-});
-
-// Temp Card for testing 07/08/21
 const Output = () => {
-  const classes = useStyles();
+  const [siteData, setData] = useState([])
+
+  useEffect(() => {
+    getSites()
+  }, [])
+
+  const getSites = async () => {
+    await axios.get('/choices')
+      .then((res) => {
+        setData(res.data)
+      })
+  }
+
   return (
     <div>
-       <Header>
+      <Header>
         <Helmet>
-          <meta charSet="utf-8" />
+          <meta charSet='utf-8' />
           <title>Found Activities!</title>
         </Helmet>
       </Header>
-      <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
+      {/*
+          possibly do a div and insert Dynamic cards with parsed data?
+          Main Progress block -> inserting new DynCards with data from scrapped data
+          7/25 - Workaround found -> take data from Beautiful Soup and format in json file
+          which would be read by Output and place those cards into card-space
+        */}
+      <div className='card-space'>
+        {/* Map the data stored in the Json file to the output page */}
+        {siteData && siteData.length > 2 ? siteData.map((someData, key) => <DynCard key={key} className='card' Dtitle={someData.title} imglink={someData.img_link} subt={someData.subtxt} bodytxt={someData.body} link={someData.html_link} />) : console.log('Nope')}
+      </div>
     </div>
   )
 }

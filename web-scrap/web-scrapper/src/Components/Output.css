@@ -1,0 +1,25 @@
+.card-space {
+    display: grid;
+    grid-template-columns: repeat(3, 0.5fr);
+    grid-template-rows: repeat(3, 0.1fr);
+    grid-row-gap: 0;
+    height: 90vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.card-body {
+    border: 1px solid;
+    border-color: orange;
+    border-radius: 5px;
+    background-color: white;
+    width: 250px;
+}
+
+.card {
+    padding: 2px;
+    height: 200px;
+    width: 250px;
+}

@@ -1,13 +1,17 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import {Helmet} from 'react-helmet'
+import Helmet from 'react-helmet'
 import './PopUp.css'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import Header from './Header'
+import Output from './Output'
+// import Output from './Output'
 
 const Popup = (props) => {
   const [enteredZip, setEnteredZip] = useState('')
   const [enteredZipTouched, setEnteredZipTouched] = useState(false)
   const [containsLetter, setLetter] = useState(false)
+  const [isSubmitted, setSubmit] = useState(false)
   const regExp = /[a-zA-Z_]/g
   const enteredZipIsValid = (enteredZip.trim() !== '' && !regExp.test(enteredZip) && enteredZip.length <= 5)
   const zipEnteredIsInvalid = ((!enteredZipIsValid && enteredZipTouched) || enteredZip.length > 5)
@@ -19,9 +23,8 @@ const Popup = (props) => {
 
   function zipPostHandler (event) {
     event.preventDefault()
-    axios.post('/reroute', { enteredZip }).then(res => {
-      //window.location.href = 'choices'
-    })
+    axios.post('/choices', { enteredZip }).then(res => setSubmit(true))
+      .catch(err => console.log(err.data))
   }
 
   const zipInputChangeHandler = event => {
@@ -54,32 +57,36 @@ const Popup = (props) => {
     ? 'box form-control invalid'
     : 'box form-control'
 
+  if (isSubmitted) {
+    return (<><Redirect push to={{ pathname: '/output' }} /><Output /></>)
+  }
   return (
     <div>
+      <Header />
       <Helmet>
-      <title>Find Shenanigans </title>
-        <meta name="description" content="App Description" />
-        <meta name="theme-color" content="#008f68" />
+        <title>Find Shenanigans </title>
+        <meta name='description' content='App Description' />
+        <meta name='theme-color' content='#008f68' />
       </Helmet>
-    <form onSubmit={formSubmissionHandler} className='zipForm'>
-      <div className={nameInputClasses}>
-        <label htmlFor='zipcode' className='label-cover'>{props.content}</label>
-        <input
-          className='zip-entry'
-          type='text'
-          id='zip'
-          onBlur={zipInputBlurHandler}
-          onChange={zipInputChangeHandler}
-          value={enteredZip}
-        />
-        <button className='getZip' disabled={!formIsValid} onClick={zipPostHandler}/* onClick={} */>
-          Submit
-        </button>
-        {(zipEnteredIsInvalid || containsLetter)
-          ? <p className='error-text'>Invalid Zipcode</p>
-          : null}
-      </div>
-    </form>
+      <form onSubmit={formSubmissionHandler} className='zipForm'>
+        <div className={nameInputClasses}>
+          <label htmlFor='zipcode' className='label-cover'>{props.content}</label>
+          <input
+            className='zip-entry'
+            type='text'
+            id='zip'
+            onBlur={zipInputBlurHandler}
+            onChange={zipInputChangeHandler}
+            value={enteredZip}
+          />
+          <button className='getZip' disabled={!formIsValid} onClick={zipPostHandler}/* onClick={} */>
+            Submit
+          </button>
+          {(zipEnteredIsInvalid || containsLetter)
+            ? <p className='error-text'>Invalid Zipcode</p>
+            : null}
+        </div>
+      </form>
     </div>
   )
 }
