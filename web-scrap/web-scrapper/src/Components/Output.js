@@ -2,7 +2,7 @@ import Header from './Header'
 import React, { Helmet, useEffect, useState } from 'react'
 import DynCard from './Card.js'
 import './Output.css'
-// import Back from './Back'
+import Back from './Back'
 import axios from 'axios'
 
 const Output = () => {
@@ -27,6 +27,7 @@ const Output = () => {
           <title>Found Activities!</title>
         </Helmet>
       </Header>
+      <Back />
       {/*
           possibly do a div and insert Dynamic cards with parsed data?
           Main Progress block -> inserting new DynCards with data from scrapped data
