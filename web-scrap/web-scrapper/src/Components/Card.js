@@ -1,17 +1,16 @@
-import React from 'react'
-import { Card, Button, CardImg, CardTitle, CardText, CardSubtitle, CardBody } from 'reactstrap'
+import './component_css/Card.css'
 
 const DynCard = (props) => {
+
   return (
-    <Card>
-      <CardBody>
-        <CardTitle>{props.Dtitle}</CardTitle>
-        <CardImg top width='100%' src={props.imglink} alt='Movie Poster' />
-        <CardSubtitle>{props.subt}</CardSubtitle>
-        <CardText>{props.bodytxt}</CardText>
-        <Button onClick={(_) => window.location.href = props.link}>Link Btn?</Button>
-      </CardBody>
-    </Card>
+    <div className='card-item'>
+    <img src={props.imgLink} alt='Activity'/>
+    <p>{props.theTitle}</p>
+    {/*TODO: Update href to be validated for malicious code??*/}
+    <a href={props.urlLink}>
+    <button>Link!</button>
+    </a>
+    </div>
   )
 }
 export default DynCard

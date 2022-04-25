@@ -1,21 +1,25 @@
 import Header from './Header'
-import React, { Helmet, useEffect, useState } from 'react'
+import { Helmet, useEffect, useState } from 'react'
 import DynCard from './Card.js'
-import './Output.css'
-import Back from './Back'
+import './component_css/Output.css'
+//import Back from './Back'
 import axios from 'axios'
+//import Loading from './Loading'
 
 const Output = () => {
-  const [siteData, setData] = useState([])
-
+  const [sites, setData] = useState([])
+  
   useEffect(() => {
     getSites()
   }, [])
 
-  const getSites = async () => {
+  //DONT USE CONST IT DOESNT ALLOW STATE CHANGE
+  let getSites = async () => {
     await axios.get('/choices')
       .then((res) => {
         setData(res.data)
+        // console.log(res.data)
+        // console.log(sites)
       })
   }
 
@@ -27,7 +31,7 @@ const Output = () => {
           <title>Found Activities!</title>
         </Helmet>
       </Header>
-      <Back />
+
       {/*
           possibly do a div and insert Dynamic cards with parsed data?
           Main Progress block -> inserting new DynCards with data from scrapped data
@@ -36,7 +40,11 @@ const Output = () => {
         */}
       <div className='card-space'>
         {/* Map the data stored in the Json file to the output page */}
-        {siteData && siteData.length > 2 ? siteData.map((someData, key) => <DynCard key={key} className='card' Dtitle={someData.title} imglink={someData.img_link} subt={someData.subtxt} bodytxt={someData.body} link={someData.html_link} />) : console.log('Nope')}
+        {/* TODO WORK WITH DYNCARDS TO OUTPUT CORRECTLY THEN GOOD  */}
+        {sites ? sites.map((values, key) => {
+          // console.log(sites.length)
+          // console.log(sites)
+          return (<DynCard key={key} className='card' theTitle={values.title} imgLink={values.img_link} urlLink={values.url_link}/>) }) : null}
       </div>
     </div>
   )

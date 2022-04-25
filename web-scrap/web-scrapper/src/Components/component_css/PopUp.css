@@ -3,11 +3,16 @@
 }
 
 label {
+  position: relative;
     font-weight: bold;
     margin-bottom: 0.5rem;
     text-decoration: underline;
   }
 
+/*
+TODO Fix positioning issue with lable 
+so its always above the input
+*/
 input,
 select {
   font: inherit;

@@ -1,0 +1,22 @@
+.card-space{
+    display: grid;
+    grid-auto-rows: 50px;
+    grid-gap: 20px;
+    padding: 20px;
+    align-content: center;
+    border: 5px solid #666;
+}
+
+.card-item {
+    background-color: white;
+    border: 1px solid black;
+    width: 500px;
+    height: 270px;
+    padding-bottom: 5px;
+}
+
+img {
+    padding-top: 5px;
+    width:40%;
+    height:60%;
+}

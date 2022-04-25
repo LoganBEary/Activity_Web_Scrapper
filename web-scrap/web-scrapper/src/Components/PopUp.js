@@ -1,7 +1,7 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Helmet from 'react-helmet'
-import './PopUp.css'
+import './component_css/PopUp.css'
 import { Redirect } from 'react-router-dom'
 import Header from './Header'
 import Output from './Output'
@@ -79,7 +79,7 @@ const Popup = (props) => {
             onChange={zipInputChangeHandler}
             value={enteredZip}
           />
-          <button className='getZip' disabled={!formIsValid} onClick={zipPostHandler}/* onClick={} */>
+          <button className='getZip' disabled={!formIsValid} onClick={zipPostHandler}>
             Submit
           </button>
           {(zipEnteredIsInvalid || containsLetter)
