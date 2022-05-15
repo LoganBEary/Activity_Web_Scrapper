@@ -3,6 +3,8 @@ import React from 'react'
 const Back = () => {
   function changeHandler (event) {
     event.preventDefault()
+    // eslint-disable-next-line no-lone-blocks
+    {/*TODO update logic to allow for going back a page */}
     window.location.href = "http://127.0.0.1:5000/"
   }
   return (

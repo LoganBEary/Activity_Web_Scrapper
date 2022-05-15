@@ -16,7 +16,4 @@ function App () {
   )
 }
 // TODO get rid of Redirect and fetch data from JSON
-// Need to fetch json from here,
-// then after submission change
-// it to allow output to show
 export default App

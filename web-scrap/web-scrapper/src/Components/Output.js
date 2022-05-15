@@ -13,7 +13,7 @@ const Output = () => {
     getSites()
   }, [])
 
-  //DONT USE CONST IT DOESNT ALLOW STATE CHANGE
+  //DONT USE CONST IT DOESN'T ALLOW STATE CHANGE
   let getSites = async () => {
     await axios.get('/choices')
       .then((res) => {
@@ -31,20 +31,11 @@ const Output = () => {
           <title>Found Activities!</title>
         </Helmet>
       </Header>
-
-      {/*
-          possibly do a div and insert Dynamic cards with parsed data?
-          Main Progress block -> inserting new DynCards with data from scrapped data
-          7/25 - Workaround found -> take data from Beautiful Soup and format in json file
-          which would be read by Output and place those cards into card-space
-        */}
       <div className='card-space'>
         {/* Map the data stored in the Json file to the output page */}
-        {/* TODO WORK WITH DYNCARDS TO OUTPUT CORRECTLY THEN GOOD  */}
+        {/* #TODO WORK WITH DYNCARDS TO OUTPUT CORRECTLY  */}
         {sites ? sites.map((values, key) => {
-          // console.log(sites.length)
-          // console.log(sites)
-          return (<DynCard key={key} className='card' theTitle={values.title} imgLink={values.img_link} urlLink={values.url_link}/>) }) : null}
+          return (<DynCard key={key} className='card' theTitle={values.title} theBody={values.body} urlLink={values.url_link}/>) }) : getSites()}
       </div>
     </div>
   )

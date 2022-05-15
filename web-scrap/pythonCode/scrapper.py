@@ -1,9 +1,6 @@
 from uszipcode import SearchEngine
 from serpapi import GoogleSearch
-from bs4 import BeautifulSoup
-import requests
 import json
-import re
 
 
 def addToJsonFile(dictionary) -> None:
@@ -23,14 +20,14 @@ def addToJsonFile(dictionary) -> None:
 def createDynDict(header, link, description, thumbnail) -> None:
     """
 
-    param header:
-    param link:
-    param description:
-    param thumbnail:
-    return None
+    param header: content from google search related to its header data
+    param link: url to webpage
+    param description: details related to content
+    param thumbnail: img from the webpage(top search results only)
+    return : None
     """
     currentDict = {
-        "title" : header, 
+        "title" : header,
         "img_link": thumbnail,
         "body" : description,
         "url_link" : link}
@@ -42,7 +39,7 @@ def scrape_zip_code(zipcode):
     """
 
     :param zipcode:
-    :return:
+    :return: 
     """
     file = open('../web-scrapper/src/data/data.json', 'w')
     file.truncate()
@@ -75,7 +72,7 @@ def scrape_zip_code(zipcode):
 # TODO Then create limit on page to how many activities to view
 # TODO allow for page back to return to results of the page
     # for items in organic_results:
-    #    createDynDict(items['title'], items['link'], items[''], items['']) 
+    #    createDynDict(items['title'], items['link'], items[''], items[''])
 
     # # need to add error handling for if zip is invalid or out of country
     openfile = open('../web-scrapper/src/data/data.json', 'r')

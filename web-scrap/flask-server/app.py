@@ -21,7 +21,7 @@ def index():
 @app.route("/")
 @app.route("/choices", methods=['POST', 'GET'])
 def choices():
-    global data 
+    global data
     if request.method == 'POST':
         session['currentZip'] = request.get_json()
         # need to fix double print of zip info
@@ -30,7 +30,7 @@ def choices():
         data = scp.scrape_zip_code(zipcode)
         return 'Data Collected'
     else:
-        # print("DaTA:", data)
+        #print("Data:", data)
         return jsonify(data)
 
 

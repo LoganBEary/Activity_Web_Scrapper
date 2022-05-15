@@ -5,7 +5,7 @@ class Loading extends Component {
   render () {
     return (
       <Suspense fallback={<div>Loading...</div>}>
-        <Out sites={import('../data/data.json')} />
+        <Out/>
       </Suspense>
     )
   }
