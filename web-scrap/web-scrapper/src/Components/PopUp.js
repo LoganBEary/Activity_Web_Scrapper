@@ -29,11 +29,9 @@ const Popup = (props) => {
 
   const zipInputChangeHandler = event => {
     setEnteredZip(event.target.value)
-    // console.log('in')
     const cont = regExp.test(event.target.value)
     if (cont === true) {
       setLetter(true)
-      // console.log('contains:', containsLetter)
     } else setLetter(false)
   }
 
